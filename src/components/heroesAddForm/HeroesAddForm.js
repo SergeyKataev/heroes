@@ -10,9 +10,25 @@
 // Элементы <option></option> желательно сформировать на базе
 // данных из фильтров
 
+import {useDispatch} from "react-redux";
+import {heroesAdd} from "../../actions";
+import {v4 as uuidv4} from "uuid";
+
 const HeroesAddForm = () => {
+    const dispatch = useDispatch();
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        dispatch(heroesAdd({
+            id: uuidv4(),
+            name: e.target[0].value,
+            description: e.target[1].value,
+            element: e.target[2].value
+        }))
+    }
+
     return (
-        <form className="border p-4 shadow-lg rounded">
+        <form className="border p-4 shadow-lg rounded" onSubmit={onSubmit}>
             <div className="mb-3">
                 <label htmlFor="name" className="form-label fs-4">Имя нового героя</label>
                 <input 

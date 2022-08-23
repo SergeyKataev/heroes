@@ -1,3 +1,6 @@
+import { v4 as uuidv4 } from "uuid";
+
+
 const initialState = {
     heroes: [],
     heroesLoadingStatus: 'idle',
@@ -27,6 +30,18 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 heroes: state.heroes.filter(hero => hero.id !== action.id)
             }
+        case 'HEROES_ADD':
+            console.log(action.payload)
+            return {
+                ...state,
+                heroes: state.heroes.concat({
+                    id: action.payload.id,
+                    name: action.payload.name,
+                    description: action.payload.description,
+                    element: action.payload.element
+                })
+            }
+
         default:
             return state
     }
